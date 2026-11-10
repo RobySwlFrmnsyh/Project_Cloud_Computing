@@ -716,12 +716,14 @@ atau `expired` dinormalisasi menjadi `pending` oleh migrasi `011`.
 
 - Laporan lengkap berada di `docs/TAHAP6_PENGUJIAN_DAN_DOKUMENTASI.md`.
 - Screenshot aplikasi tersedia di `docs/screenshots/`.
-- Koleksi dan environment Postman tersedia di `postman/`.
+- Koleksi utama, koleksi reset demo terpisah, dan environment Postman tersedia di
+  `postman/`.
 - Smoke test stack, screenshot UI, uji hapus UI, dan pemeriksaan persistensi tersedia di
   `scripts/`.
 - Pengujian API otomatis: 32 pengujian tersedia; bagian 10.2 laporan Tahap 6 mencatat
   32/32 lulus.
-- Pengujian Postman/Newman: 65 request, 104 assertion, 0 gagal.
+- Pengujian Postman/Newman: koleksi utama 63 request/100 assertion, ditambah
+  koleksi reset demo 2 request/4 assertion; total 65 request, 104 assertion, 0 gagal.
 - Smoke test stack: 9 pemeriksaan lulus, termasuk Socket.IO dan migrasi database.
 - Pengujian UI headless: 9 halaman/screenshot lulus, termasuk tampilan seluler dan uji
   hapus permanen pesanan `cancelled`.
@@ -860,7 +862,7 @@ Implementasi Tahap 1–6 telah selesai. Ringkasan status:
 | Realtime dan notifikasi | Selesai | Socket.IO, `driver_locations`, `notifications` |
 | Rating dan pengelolaan admin | Selesai | Rating agregat, verifikasi driver, reset akun/demo |
 | Deployment Docker | Selesai | 4 service, nginx, healthcheck, volume `pgdata` |
-| Pengujian | Selesai | 32 tes API, Postman 65/104, smoke 9, UI headless |
+| Pengujian | Selesai | 32 tes API, Postman 65/104 (utama 63/100 + reset 2/4), smoke 9, UI headless |
 | Dokumentasi | Selesai | README, PRD, deployment, Tahap 6, Demo Postman |
 
 ## Roadmap dan Perbaikan Lanjutan

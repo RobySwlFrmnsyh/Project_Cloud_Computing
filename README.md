@@ -338,20 +338,30 @@ node scripts/test-delete-ui.mjs       # UI hapus permanen pesanan cancelled
 ./scripts/persistence-check.sh        # restart stack tanpa menghapus volume
 ```
 
-Koleksi REST API untuk Postman tersedia di `postman/` dan mencakup seluruh 40 endpoint
-REST backend (65 request, 104 assertion). Panduan demo lengkap, termasuk akses dari
+Koleksi REST API untuk Postman tersedia di `postman/`. Koleksi utama mencakup 39
+endpoint REST (63 request, 100 assertion), sedangkan koleksi reset demo dipisahkan
+karena destruktif dan menambah 1 endpoint (2 request, 4 assertion). Total cakupan:
+40 endpoint, 65 request, 104 assertion. Panduan demo lengkap, termasuk akses dari
 Windows melalui port forwarding VirtualBox, ada di [`docs/DEMO_POSTMAN.md`](./docs/DEMO_POSTMAN.md).
-Contoh menjalankan otomatis dengan Newman:
+
+Contoh menjalankan koleksi utama dengan Newman:
 
 ```bash
 npx newman run postman/AnterJemputTeman.postman_collection.json \
   -e postman/AnterJemputTeman.postman_environment.json
 ```
 
-Hasil pengujian terakhir: 65/65 request dan 104/104 assertion lulus, 9 pemeriksaan smoke
-stack lulus, UI hapus permanen lulus, dan jumlah data database tetap sama setelah container
-Docker dibuat ulang. Jalankan folder `00 Reset Demo` sebelum demo agar data kembali ke
-kondisi awal.
+Reset demo terpisah (destruktif, menghapus akun dan data):
+
+```bash
+npx newman run postman/AnterJemputTeman-ResetDemo.postman_collection.json \
+  -e postman/AnterJemputTeman.postman_environment.json
+```
+
+Hasil pengujian terakhir: koleksi utama 63/63 request dan 100/100 assertion lulus,
+9 pemeriksaan smoke stack lulus, UI hapus permanen lulus, dan jumlah data database
+tetap sama setelah container Docker dibuat ulang. Jangan jalankan reset demo jika
+ada akun registrasi yang ingin dipertahankan.
 
 Pemeriksaan stack Docker:
 
