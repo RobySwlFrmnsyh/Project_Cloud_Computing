@@ -1,0 +1,11 @@
+node_modules
+.env
+.env.*
+.pgdata
+.pgdata-test
+test
+coverage
+npm-debug.log*
+Dockerfile
+.dockerignore
+README.md

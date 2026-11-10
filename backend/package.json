@@ -1,0 +1,43 @@
+{
+  "name": "anter-jemput-teman-backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "REST API dan database PostgreSQL untuk Anter Jemput Teman",
+  "type": "module",
+  "main": "src/server.js",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "node src/server.js",
+    "start": "node src/server.js",
+    "db:start": "node scripts/dev-db.js",
+    "db:migrate": "node scripts/migrate-cli.js",
+    "db:seed": "node scripts/seed-cli.js",
+    "db:reset": "node scripts/seed-cli.js --force",
+    "test": "node --test --test-concurrency=1 test/api.test.js"
+  },
+  "keywords": [
+    "express",
+    "postgresql",
+    "rest-api"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.9",
+    "express": "^5.3.0",
+    "helmet": "^8.3.0",
+    "jsonwebtoken": "^9.0.3",
+    "pg": "^8.23.1",
+    "socket.io": "^4.8.4",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "embedded-postgres": "^17.10.0-beta.17",
+    "socket.io-client": "^4.8.4",
+    "supertest": "^7.3.1"
+  }
+}

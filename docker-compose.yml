@@ -1,0 +1,85 @@
+name: anter-jemput-teman
+
+services:
+  db:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-ajt}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD wajib diisi di .env}
+      POSTGRES_DB: ${POSTGRES_DB:-ajt}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+    networks:
+      - ajt
+
+  adminer:
+    image: adminer:latest
+    restart: unless-stopped
+    environment:
+      ADMINER_DEFAULT_SERVER: db
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "${HOST_BIND:-0.0.0.0}:${ADMINER_PORT:-8081}:8080"
+    networks:
+      - ajt
+
+  backend:
+    build:
+      context: ./backend
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 4000
+      BIND_HOST: 0.0.0.0
+      RATE_LIMIT_WINDOW_MS: ${RATE_LIMIT_WINDOW_MS:-900000}
+      RATE_LIMIT_MAX: ${RATE_LIMIT_MAX:-1000}
+      AUTH_RATE_LIMIT_MAX: ${AUTH_RATE_LIMIT_MAX:-100}
+      USE_EMBEDDED_DB: "false"
+      DATABASE_URL: postgres://${POSTGRES_USER:-ajt}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-ajt}
+      JWT_SECRET: ${JWT_SECRET:?JWT_SECRET wajib diisi di .env}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-7d}
+      COOKIE_NAME: ${COOKIE_NAME:-ajt_session}
+      COOKIE_SECURE: ${COOKIE_SECURE:-false}
+      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:8080,http://127.0.0.1:8080}
+      SEED_DEMO: ${SEED_DEMO:-true}
+      ALLOW_DEMO_RESET: ${ALLOW_DEMO_RESET:-true}
+      ROAD_ROUTING_ENABLED: ${ROAD_ROUTING_ENABLED:-true}
+      OSRM_BASE_URL: ${OSRM_BASE_URL:-https://router.project-osrm.org}
+      ROUTING_TIMEOUT_MS: ${ROUTING_TIMEOUT_MS:-6000}
+      GEOCODE_TIMEOUT_MS: ${GEOCODE_TIMEOUT_MS:-8000}
+      MAPBOX_ACCESS_TOKEN: ${MAPBOX_ACCESS_TOKEN:-}
+      GOOGLE_MAPS_API_KEY: ${GOOGLE_MAPS_API_KEY:-}
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "${HOST_BIND:-0.0.0.0}:${BACKEND_PORT:-4000}:4000"
+    networks:
+      - ajt
+
+  frontend:
+    build:
+      context: ./frontend
+    restart: unless-stopped
+    depends_on:
+      backend:
+        condition: service_healthy
+    ports:
+      - "${HOST_BIND:-0.0.0.0}:${FRONTEND_PORT:-8080}:80"
+    networks:
+      - ajt
+
+volumes:
+  pgdata:
+
+networks:
+  ajt:
+    driver: bridge

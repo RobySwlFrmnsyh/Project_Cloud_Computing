@@ -1,0 +1,170 @@
+@import './styles/components.css';
+@import './styles/layout.css';
+@import './styles/pages.css';
+@import './styles/polish.css';
+
+:root {
+  color-scheme: light;
+  --navy-950: #051022;
+  --navy-900: #08172e;
+  --navy-800: #0b2545;
+  --navy-700: #123a63;
+  --navy-600: #1a4b7d;
+  --blue-600: #1f6feb;
+  --blue-500: #3b82f6;
+  --blue-100: #e5efff;
+  --accent: #f7b32b;
+  --accent-strong: #e29a10;
+  --amber-soft: #fff5dd;
+  --green-600: #0f9d75;
+  --green-soft: #e3f8f0;
+  --red-600: #d64545;
+  --red-soft: #fdeaea;
+  --violet: #6b4ee6;
+  --ink: #0b1f3a;
+  --ink-2: #2f4058;
+  --muted: #64748b;
+  --muted-2: #8a97ab;
+  --bg: #f3f6fb;
+  --surface: #ffffff;
+  --surface-2: #f8fafd;
+  --line: #e2e8f2;
+  --line-soft: #eef2f9;
+  --radius-sm: 10px;
+  --radius: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 26px;
+  --shadow-sm: 0 1px 2px rgba(8, 23, 46, 0.05), 0 10px 30px -22px rgba(8, 23, 46, 0.35);
+  --shadow-md: 0 24px 60px -32px rgba(8, 23, 46, 0.4);
+  --shadow-lg: 0 40px 80px -40px rgba(8, 23, 46, 0.55);
+  --font: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --container: 1180px;
+  --header-h: 70px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--ink-2);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: var(--ink);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+ul,
+ol {
+  margin: 0;
+}
+
+:focus-visible {
+  outline: 3px solid rgba(31, 111, 235, 0.35);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: rgba(31, 111, 235, 0.2);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c9d5e6;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.container {
+  width: min(100% - 2.5rem, var(--container));
+  margin-inline: auto;
+}
+
+.text-accent {
+  color: var(--accent);
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.text-sm {
+  font-size: 0.82rem;
+}
+
+.icon {
+  flex-shrink: 0;
+}
+
+code {
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.85em;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  padding: 0.05rem 0.3rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

@@ -1,0 +1,3 @@
+ALTER TABLE payments
+  ADD COLUMN IF NOT EXISTS confirmation_source TEXT,
+  ADD COLUMN IF NOT EXISTS confirmed_by_user_id INTEGER REFERENCES users(id) ON DELETE SET NULL;

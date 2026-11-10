@@ -1,0 +1,11 @@
+.env
+node_modules/
+dist/
+backend/.pgdata*
+
+backend/.env
+*.log
+
+docs
+postman/
+
